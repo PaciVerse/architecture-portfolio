@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Oni DesignStudio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=Inter:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="css/style.css"/>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="nav">
+    <div class="nav-logo">ONI DESIGNSTUDIO</div>
+    <div class="nav-links">
+      <a href="index.html">Work</a>
+      <a href="pages/contact.html">Contact</a>
+      <div id="nav-auth">
+        <a href="pages/auth.html" class="btn-outline">Login</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-text">
+      <span class="hero-eyebrow">Architecture Portfolio</span>
+      <h1 class="hero-title">Space.<br/><em>Form.</em><br/>Vision.</h1>
+      <p class="hero-sub">A collection of architectural work exploring the boundary between structure and experience.</p>
+      <a href="#projects" class="btn-gold">View Projects</a>
+    </div>
+    <div class="hero-counter" id="hero-counter">00</div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section class="projects-section" id="projects">
+    <div class="section-header">
+      <span class="section-label">Selected Work</span>
+      <div class="filter-bar">
+        <button class="filter-btn active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="Residential">Residential</button>
+        <button class="filter-btn" data-filter="Commercial">Commercial</button>
+        <button class="filter-btn" data-filter="Urban Design">Urban Design</button>
+        <button class="filter-btn" data-filter="Interior">Interior</button>
+      </div>
+    </div>
+    <div class="projects-grid" id="projects-grid">
+      <!-- Projects loaded here -->
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-left">
+      <span class="nav-logo">ONI DESIGNSTUDIO</span>
+      <p>Designing spaces that inspire.</p>
+    </div>
+    <div class="footer-right">
+      <a href="pages/contact.html">Get in Touch</a>
+      <a href="pages/auth.html">Visitor Login</a>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

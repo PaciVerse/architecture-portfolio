@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin | Oni DesignStudio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=Inter:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="../css/style.css"/>
+  <link rel="stylesheet" href="../css/admin.css"/>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="nav">
+    <a href="../index.html" class="nav-logo">ONI DESIGNSTUDIO</a>
+    <div class="nav-links">
+      <a href="../index.html">View Site</a>
+      <a href="#" onclick="logout()" class="btn-outline">Logout</a>
+    </div>
+  </nav>
+
+  <!-- DASHBOARD -->
+  <section class="admin-section">
+
+    <!-- SIDEBAR -->
+    <aside class="admin-sidebar">
+      <ul class="sidebar-menu">
+        <li class="sidebar-item active" onclick="showTab('projects')">
+          <span>🏗</span> Projects
+        </li>
+        <li class="sidebar-item" onclick="showTab('messages')">
+          <span>📩</span> Messages
+        </li>
+        <li class="sidebar-item" onclick="showTab('add')">
+          <span>➕</span> Add Project
+        </li>
+      </ul>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="admin-main">
+
+      <!-- PROJECTS TAB -->
+      <div id="tab-projects" class="admin-tab">
+        <div class="admin-tab-header">
+          <h2 class="admin-tab-title">All Projects</h2>
+        </div>
+        <div id="admin-projects-list"></div>
+      </div>
+
+      <!-- MESSAGES TAB -->
+      <div id="tab-messages" class="admin-tab" style="display:none">
+        <div class="admin-tab-header">
+          <h2 class="admin-tab-title">Messages</h2>
+        </div>
+        <div id="admin-messages-list"></div>
+      </div>
+
+      <!-- ADD PROJECT TAB -->
+      <div id="tab-add" class="admin-tab" style="display:none">
+        <div class="admin-tab-header">
+          <h2 class="admin-tab-title" id="form-title">Add New Project</h2>
+        </div>
+        <div class="project-form">
+          <input type="hidden" id="edit-id"/>
+          <div class="form-group">
+            <label>Project Title</label>
+            <input type="text" id="f-title" placeholder="e.g. Modern Villa"/>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Category</label>
+              <select id="f-category">
+                <option value="">Select category</option>
+                <option value="Residential">Residential</option>
+                <option value="Commercial">Commercial</option>
+                <option value="Urban Design">Urban Design</option>
+                <option value="Interior">Interior</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Year</label>
+              <input type="number" id="f-year" placeholder="2024"/>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Description</label>
+            <textarea id="f-description" rows="5" placeholder="Describe the project..."></textarea>
+          </div>
+          <div class="form-group">
+            <label>Project Image</label>
+            <input type="file" id="f-image" accept="image/*"/>
+          </div>
+          <p class="auth-msg" id="form-msg"></p>
+          <div style="display:flex;gap:1rem">
+            <button class="btn-gold" onclick="saveProject()">Save Project</button>
+            <button class="btn-cancel" id="cancel-edit" style="display:none" onclick="cancelEdit()">Cancel</button>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </section>
+
+  <script src="../js/admin.js"></script>
+</body>
+</html>

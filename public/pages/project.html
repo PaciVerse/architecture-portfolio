@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Project | Oni DesignStudio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=Inter:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="../css/style.css"/>
+  <link rel="stylesheet" href="../css/project.css"/>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="nav">
+    <div class="nav-logo">ONI DESIGNSTUDIO</div>
+    <div class="nav-links">
+      <a href="../index.html">Work</a>
+      <a href="contact.html">Contact</a>
+      <div id="nav-auth">
+        <a href="auth.html" class="btn-outline">Login</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- PROJECT HERO -->
+  <section class="project-hero" id="project-hero">
+    <div class="project-hero-overlay"></div>
+    <div class="project-hero-content">
+      <span class="hero-eyebrow" id="project-category"></span>
+      <h1 class="project-title" id="project-title"></h1>
+      <span class="project-year" id="project-year"></span>
+    </div>
+  </section>
+
+  <!-- PROJECT BODY -->
+  <section class="project-body">
+    <div class="project-description" id="project-description"></div>
+    <div class="project-actions">
+      <button class="like-btn" id="like-btn" onclick="toggleLike()">
+        <span id="like-icon">♡</span>
+        <span id="like-count">0</span> Likes
+      </button>
+    </div>
+  </section>
+
+  <!-- REVIEWS -->
+  <section class="reviews-section">
+    <div class="section-header" style="margin-bottom:2rem">
+      <span class="section-label">Reviews</span>
+    </div>
+
+    <div id="review-form-container">
+      <div class="review-form" id="review-form" style="display:none">
+        <div class="stars-input" id="stars-input">
+          <span class="star" data-value="1">★</span>
+          <span class="star" data-value="2">★</span>
+          <span class="star" data-value="3">★</span>
+          <span class="star" data-value="4">★</span>
+          <span class="star" data-value="5">★</span>
+        </div>
+        <textarea id="review-comment" placeholder="Share your thoughts on this project..." rows="4"></textarea>
+        <button class="btn-gold" onclick="submitReview()">Submit Review</button>
+      </div>
+      <p id="review-login-msg" style="color:var(--muted);font-size:0.85rem">
+        <a href="auth.html" style="color:var(--gold)">Login</a> to leave a review.
+      </p>
+    </div>
+
+    <div class="reviews-list" id="reviews-list"></div>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-left">
+      <span class="nav-logo">ONI DESIGNSTUDIO</span>
+      <p>Designing spaces that inspire.</p>
+    </div>
+    <div class="footer-right">
+      <a href="contact.html">Get in Touch</a>
+      <a href="auth.html">Visitor Login</a>
+    </div>
+  </footer>
+
+  <script src="../js/project.js"></script>
+</body>
+</html>
