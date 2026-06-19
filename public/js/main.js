@@ -1,4 +1,4 @@
-const API = 'http://localhost:3000/api';
+const API = 'https://architecture-portfolio-production.up.railway.app/api';
 
 // Update hero counter
 function updateCounter(count) {

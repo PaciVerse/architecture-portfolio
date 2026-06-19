@@ -1,5 +1,4 @@
-const API = 'http://localhost:3000/api';
-
+const API = 'https://architecture-portfolio-production.up.railway.app/api';
 function switchTab(tab) {
   document.querySelectorAll('.auth-tab').forEach((t, i) => {
     t.classList.toggle('active', (i === 0 && tab === 'login') || (i === 1 && tab === 'register'));
