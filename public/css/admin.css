@@ -214,3 +214,43 @@
   color: var(--muted);
   margin-top: 0.8rem;
 }
+
+@media (max-width: 768px) {
+  .admin-sidebar {
+    width: 60px;
+    padding: 1rem 0;
+  }
+
+  .sidebar-item span:last-child {
+    display: none;
+  }
+
+  .sidebar-item {
+    justify-content: center;
+    padding: 1rem;
+  }
+
+  .admin-main {
+    margin-left: 60px;
+    padding: 2rem 1.5rem;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-project-item {
+    flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 480px) {
+  .admin-sidebar {
+    display: none;
+  }
+
+  .admin-main {
+    margin-left: 0;
+    padding: 1.5rem 1.2rem;
+  }
+}

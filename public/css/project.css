@@ -154,3 +154,43 @@
 }
 
 .delete-review:hover { color: #e05555; }
+
+
+@media (max-width: 768px) {
+  .project-hero {
+    height: 50vh;
+  }
+
+  .project-hero-content {
+    padding: 2rem 1.5rem;
+  }
+
+  .project-title {
+    font-size: clamp(2rem, 8vw, 3rem);
+  }
+
+  .project-body {
+    flex-direction: column;
+    padding: 2rem 1.5rem;
+    gap: 1.5rem;
+  }
+
+  .reviews-section {
+    padding: 2rem 1.5rem;
+  }
+
+  .review-form textarea {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .project-hero-content {
+    padding: 1.5rem 1.2rem;
+  }
+
+  .like-btn {
+    width: 100%;
+    text-align: center;
+  }
+}

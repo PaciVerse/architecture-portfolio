@@ -413,4 +413,29 @@ body {
 
 @media (max-width: 480px) {
   .nav-logo {
-    font-size:
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+  }
+
+  .nav-links {
+    gap: 0.8rem;
+  }
+
+  .btn-outline {
+    padding: 0.3rem 0.8rem !important;
+    font-size: 0.7rem !important;
+  }
+
+  .hero {
+    padding: 6rem 1.2rem 2rem;
+  }
+
+  .btn-gold {
+    padding: 0.7rem 1.8rem;
+    font-size: 0.75rem;
+  }
+
+  .projects-grid {
+    grid-template-columns: 1fr;
+  }
+}
