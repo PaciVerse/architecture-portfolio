@@ -32,7 +32,7 @@ async function loadProjects(filter = 'all') {
     grid.innerHTML = filtered.map(p => `
       <div class="project-card fade-up" onclick="location.href='pages/project.html?id=${p.id}'">
         ${p.image
-          ? `<img src="/uploads/${p.image}" alt="${p.title}"/>`
+          ? `<img src="${p.image}" alt="${p.title}"/>`
           : `<div class="project-card-no-img"><span>A</span></div>`
         }
         <div class="project-card-info">

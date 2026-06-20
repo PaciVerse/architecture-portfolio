@@ -18,7 +18,7 @@ async function loadProject() {
 
     const hero = document.getElementById('project-hero');
     if (p.image) {
-      hero.style.backgroundImage = `url(/uploads/${p.image})`;
+      hero.style.backgroundImage = `url(${p.image})`;
       hero.style.backgroundSize = 'cover';
       hero.style.backgroundPosition = 'center';
     }

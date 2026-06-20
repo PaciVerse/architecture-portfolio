@@ -20,13 +20,7 @@ exports.getProject = (req, res) => {
 // Create project
 exports.createProject = (req, res) => {
   const { title, description, category, year } = req.body;
-  const image = req.file ? req.file.filename : null;
-
-  // Create uploads dir if it doesn't exist
-  const fs = require('fs');
-  if (!fs.existsSync('uploads')) {
-    fs.mkdirSync('uploads');
-  }
+  const image = req.file ? req.file.path : null;
 
   db.query(
     'INSERT INTO projects (title, description, category, year, image) VALUES (?, ?, ?, ?, ?)',
@@ -41,7 +35,7 @@ exports.createProject = (req, res) => {
 // Update project
 exports.updateProject = (req, res) => {
   const { title, description, category, year } = req.body;
-  const image = req.file ? req.file.filename : null;
+  const image = req.file ? req.file.path : null;
 
   const query = image
     ? 'UPDATE projects SET title=?, description=?, category=?, year=?, image=? WHERE id=?'

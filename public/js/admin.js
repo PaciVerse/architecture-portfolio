@@ -29,7 +29,7 @@ async function loadProjects() {
     list.innerHTML = projects.map(p => `
       <div class="admin-project-item">
         ${p.image
-          ? `<img src="/uploads/${p.image}" class="admin-project-thumb" alt="${p.title}"/>`
+          ? `<img src="${p.image}" class="admin-project-thumb" alt="${p.title}"/>`
           : `<div class="admin-project-thumb-placeholder">🏗</div>`
         }
         <div class="admin-project-info">
