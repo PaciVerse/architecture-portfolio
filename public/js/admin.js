@@ -1,4 +1,7 @@
-const API = window.location.hostname === 'localhost' ? 'http://localhost:3000/api' : 'https://architecture-portfolio-production.up.railway.app/api';
+const API = window.location.hostname === 'localhost'
+  ? 'http://localhost:3000/api'
+  : 'https://architecture-portfolio-production.up.railway.app/api';
+
 // Protect page
 const adminToken = localStorage.getItem('adminToken');
 if (!adminToken) location.href = 'auth.html';
@@ -47,7 +50,7 @@ async function loadProjects() {
   }
 }
 
-// Save project (add or update)
+// Save project
 async function saveProject() {
   const id = document.getElementById('edit-id').value;
   const title = document.getElementById('f-title').value;
@@ -56,7 +59,7 @@ async function saveProject() {
   const description = document.getElementById('f-description').value;
   const image = document.getElementById('f-image').files[0];
 
-  if (!title) return showFormMsg('Title is required', 'error');
+  if (!title) return showToast('Title is required', 'error');
 
   const formData = new FormData();
   formData.append('title', title);
@@ -66,7 +69,6 @@ async function saveProject() {
   if (image) formData.append('image', image);
 
   try {
-    console.log('Admin token:', adminToken);
     const url = id ? `${API}/projects/${id}` : `${API}/projects`;
     const method = id ? 'PUT' : 'POST';
 
@@ -77,13 +79,13 @@ async function saveProject() {
     });
     const data = await res.json();
 
-    if (!res.ok) return showFormMsg(data.message, 'error');
+    if (!res.ok) return showToast(data.message, 'error');
 
-    showFormMsg(id ? 'Project updated!' : 'Project added!', 'success');
+    showToast(id ? 'Project updated!' : 'Project added!', 'success');
     cancelEdit();
     setTimeout(() => showTab('projects'), 1000);
   } catch (err) {
-    showFormMsg('Server error', 'error');
+    showToast('Server error', 'error');
   }
 }
 
@@ -112,7 +114,7 @@ function cancelEdit() {
 }
 
 // Delete project
-async function deleteProject(id) {
+function deleteProject(id) {
   showConfirm('This action cannot be undone. The project will be permanently deleted.', async () => {
     try {
       const res = await fetch(`${API}/projects/${id}`, {
@@ -161,7 +163,7 @@ async function loadMessages() {
 }
 
 // Delete message
-async async function deleteMessage(id) {
+function deleteMessage(id) {
   showConfirm('This message will be permanently deleted.', async () => {
     try {
       const res = await fetch(`${API}/contacts/${id}`, {
@@ -175,12 +177,6 @@ async async function deleteMessage(id) {
       showToast('Error deleting message', 'error');
     }
   });
-}
-
-function showFormMsg(msg, type) {
-  const el = document.getElementById('form-msg');
-  el.textContent = msg;
-  el.className = `auth-msg ${type}`;
 }
 
 function logout() {
