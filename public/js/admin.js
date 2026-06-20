@@ -66,6 +66,7 @@ async function saveProject() {
   if (image) formData.append('image', image);
 
   try {
+    console.log('Admin token:', adminToken);
     const url = id ? `${API}/projects/${id}` : `${API}/projects`;
     const method = id ? 'PUT' : 'POST';
 
