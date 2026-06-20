@@ -6,6 +6,12 @@ const jwt = require('jsonwebtoken');
 exports.register = async (req, res) => {
   const { username, email, password } = req.body;
 
+  console.log('Register attempt:', { username, email });
+
+  if (!username || !email || !password) {
+    return res.status(400).json({ message: 'All fields are required' });
+  }
+
   try {
     const hashedPassword = await bcrypt.hash(password, 10);
     db.query(
@@ -13,15 +19,17 @@ exports.register = async (req, res) => {
       [username, email, hashedPassword],
       (err, result) => {
         if (err) {
+          console.error('DB Error:', err);
           if (err.code === 'ER_DUP_ENTRY')
             return res.status(400).json({ message: 'Email already registered' });
-          return res.status(500).json({ message: 'Error registering visitor' });
+          return res.status(500).json({ message: err.message });
         }
         res.status(201).json({ message: 'Registered successfully' });
       }
     );
   } catch (err) {
-    res.status(500).json({ message: 'Server error' });
+    console.error('Server error:', err);
+    res.status(500).json({ message: err.message });
   }
 };
 

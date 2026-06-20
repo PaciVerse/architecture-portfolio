@@ -1,4 +1,5 @@
-const API = 'https://architecture-portfolio-production.up.railway.app/api';
+const API = window.location.hostname === 'localhost' ? 'http://localhost:3000/api' : 'https://architecture-portfolio-production.up.railway.app/api';
+
 const params = new URLSearchParams(window.location.search);
 const projectId = params.get('id');
 let selectedRating = 0;

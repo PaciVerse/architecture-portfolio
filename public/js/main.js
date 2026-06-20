@@ -1,4 +1,7 @@
-const API = 'https://architecture-portfolio-production.up.railway.app/api';
+const API = window.location.hostname === 'localhost' 
+  ? 'http://localhost:3000/api' 
+  : 'https://architecture-portfolio-production.up.railway.app/api';
+
 
 // Update hero counter
 function updateCounter(count) {
