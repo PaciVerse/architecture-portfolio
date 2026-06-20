@@ -2,22 +2,18 @@ const API = window.location.hostname === 'localhost'
   ? 'http://localhost:3000/api'
   : 'https://architecture-portfolio-production.up.railway.app/api';
 
-// Protect page
 const adminToken = localStorage.getItem('adminToken');
 if (!adminToken) location.href = 'auth.html';
 
-// Switch tabs
 function showTab(tab) {
   document.querySelectorAll('.admin-tab').forEach(t => t.style.display = 'none');
   document.querySelectorAll('.sidebar-item').forEach(i => i.classList.remove('active'));
   document.getElementById(`tab-${tab}`).style.display = 'block';
   document.querySelectorAll('.sidebar-item')[['projects','messages','add'].indexOf(tab)].classList.add('active');
-
   if (tab === 'projects') loadProjects();
   if (tab === 'messages') loadMessages();
 }
 
-// Load projects
 async function loadProjects() {
   try {
     const res = await fetch(`${API}/projects`);
@@ -31,8 +27,8 @@ async function loadProjects() {
 
     list.innerHTML = projects.map(p => `
       <div class="admin-project-item">
-        ${p.image
-          ? `<img src="${p.image}" class="admin-project-thumb" alt="${p.title}"/>`
+        ${p.cover_image
+          ? `<img src="${p.cover_image}" class="admin-project-thumb" alt="${p.title}"/>`
           : `<div class="admin-project-thumb-placeholder">🏗</div>`
         }
         <div class="admin-project-info">
@@ -50,14 +46,13 @@ async function loadProjects() {
   }
 }
 
-// Save project
 async function saveProject() {
   const id = document.getElementById('edit-id').value;
   const title = document.getElementById('f-title').value;
   const category = document.getElementById('f-category').value;
   const year = document.getElementById('f-year').value;
   const description = document.getElementById('f-description').value;
-  const image = document.getElementById('f-image').files[0];
+  const images = document.getElementById('f-image').files;
 
   if (!title) return showToast('Title is required', 'error');
 
@@ -66,7 +61,9 @@ async function saveProject() {
   formData.append('category', category);
   formData.append('year', year);
   formData.append('description', description);
-  if (image) formData.append('image', image);
+  for (let i = 0; i < images.length; i++) {
+    formData.append('images', images[i]);
+  }
 
   try {
     const url = id ? `${API}/projects/${id}` : `${API}/projects`;
@@ -89,7 +86,6 @@ async function saveProject() {
   }
 }
 
-// Edit project
 function editProject(id, title, category, year, description) {
   showTab('add');
   document.getElementById('form-title').textContent = 'Edit Project';
@@ -99,9 +95,62 @@ function editProject(id, title, category, year, description) {
   document.getElementById('f-year').value = year;
   document.getElementById('f-description').value = description;
   document.getElementById('cancel-edit').style.display = 'inline-block';
+  loadProjectImages(id);
 }
 
-// Cancel edit
+async function loadProjectImages(projectId) {
+  try {
+    const res = await fetch(`${API}/projects/${projectId}`);
+    const project = await res.json();
+    const container = document.getElementById('current-images');
+
+    if (!project.images || project.images.length === 0) {
+      container.innerHTML = `<p style="color:var(--muted);font-size:0.8rem">No images yet.</p>`;
+      return;
+    }
+
+    container.innerHTML = project.images.map(img => `
+      <div class="image-thumb-wrap" id="img-${img.id}">
+        <img src="${img.image}" class="image-thumb" alt="project image"/>
+        ${img.is_cover ? `<span class="cover-badge">Cover</span>` : `<button class="btn-set-cover" onclick="setCover(${projectId}, ${img.id})">Set Cover</button>`}
+        <button class="btn-del-img" onclick="deleteImage(${projectId}, ${img.id})">×</button>
+      </div>
+    `).join('');
+  } catch (err) {
+    console.error('Error loading images:', err);
+  }
+}
+
+async function deleteImage(projectId, imageId) {
+  showConfirm('Delete this image?', async () => {
+    try {
+      const res = await fetch(`${API}/projects/${projectId}/images/${imageId}`, {
+        method: 'DELETE',
+        headers: { authorization: adminToken }
+      });
+      const data = await res.json();
+      showToast(data.message, 'success');
+      loadProjectImages(projectId);
+    } catch (err) {
+      showToast('Error deleting image', 'error');
+    }
+  });
+}
+
+async function setCover(projectId, imageId) {
+  try {
+    const res = await fetch(`${API}/projects/${projectId}/images/${imageId}/cover`, {
+      method: 'PUT',
+      headers: { authorization: adminToken }
+    });
+    const data = await res.json();
+    showToast(data.message, 'success');
+    loadProjectImages(projectId);
+  } catch (err) {
+    showToast('Error setting cover', 'error');
+  }
+}
+
 function cancelEdit() {
   document.getElementById('form-title').textContent = 'Add New Project';
   document.getElementById('edit-id').value = '';
@@ -111,9 +160,9 @@ function cancelEdit() {
   document.getElementById('f-description').value = '';
   document.getElementById('f-image').value = '';
   document.getElementById('cancel-edit').style.display = 'none';
+  document.getElementById('current-images').innerHTML = '';
 }
 
-// Delete project
 function deleteProject(id) {
   showConfirm('This action cannot be undone. The project will be permanently deleted.', async () => {
     try {
@@ -130,7 +179,6 @@ function deleteProject(id) {
   });
 }
 
-// Load messages
 async function loadMessages() {
   try {
     const res = await fetch(`${API}/contacts`, {
@@ -162,7 +210,6 @@ async function loadMessages() {
   }
 }
 
-// Delete message
 function deleteMessage(id) {
   showConfirm('This message will be permanently deleted.', async () => {
     try {
@@ -184,5 +231,4 @@ function logout() {
   location.href = 'auth.html';
 }
 
-// Init
 loadProjects();

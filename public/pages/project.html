@@ -11,9 +11,8 @@
 </head>
 <body>
 
-  <!-- NAV -->
   <nav class="nav">
-    <div class="nav-logo">ONI DESIGNSTUDIO</div>
+    <a href="../index.html" class="nav-logo">ONI DESIGNSTUDIO</a>
     <div class="nav-links">
       <a href="../index.html">Work</a>
       <a href="contact.html">Contact</a>
@@ -23,7 +22,7 @@
     </div>
   </nav>
 
-  <!-- PROJECT HERO -->
+  <!-- HERO -->
   <section class="project-hero" id="project-hero">
     <div class="project-hero-overlay"></div>
     <div class="project-hero-content">
@@ -33,7 +32,7 @@
     </div>
   </section>
 
-  <!-- PROJECT BODY -->
+  <!-- BODY -->
   <section class="project-body">
     <div class="project-description" id="project-description"></div>
     <div class="project-actions">
@@ -43,6 +42,20 @@
       </button>
     </div>
   </section>
+
+  <!-- IMAGE GALLERY -->
+  <section id="gallery-section" style="display:none">
+    <div class="gallery-grid" id="gallery-grid"></div>
+  </section>
+
+  <!-- LIGHTBOX -->
+  <div id="lightbox" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.95);z-index:9999;align-items:center;justify-content:center;flex-direction:column">
+    <button onclick="closeLightbox()" style="position:absolute;top:2rem;right:2rem;background:none;border:none;color:white;font-size:2rem;cursor:pointer">×</button>
+    <button onclick="lightboxPrev()" style="position:absolute;left:2rem;background:none;border:1px solid rgba(255,255,255,0.2);color:white;font-size:1.5rem;cursor:pointer;padding:0.5rem 1rem;border-radius:2px">‹</button>
+    <img id="lightbox-img" src="" alt="" style="max-width:90vw;max-height:85vh;object-fit:contain;border-radius:4px"/>
+    <span id="lightbox-counter" style="color:rgba(255,255,255,0.5);font-size:0.8rem;margin-top:1rem;letter-spacing:0.2em"></span>
+    <button onclick="lightboxNext()" style="position:absolute;right:2rem;background:none;border:1px solid rgba(255,255,255,0.2);color:white;font-size:1.5rem;cursor:pointer;padding:0.5rem 1rem;border-radius:2px">›</button>
+  </div>
 
   <!-- REVIEWS -->
   <section class="reviews-section">
@@ -63,7 +76,7 @@
         <button class="btn-gold" onclick="submitReview()">Submit Review</button>
       </div>
       <p id="review-login-msg" style="color:var(--muted);font-size:0.85rem">
-        <a href="auth.html" style="color:var(--gold)">Login</a> to leave a review.
+        <a href="auth.html" style="color:var(--blue)">Login</a> to leave a review.
       </p>
     </div>
 
