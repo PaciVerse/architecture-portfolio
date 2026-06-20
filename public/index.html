@@ -36,15 +36,21 @@
   <!-- PROJECTS -->
   <section class="projects-section" id="projects">
     <div class="section-header">
-      <span class="section-label">Selected Work</span>
-      <div class="filter-bar">
-        <button class="filter-btn active" data-filter="all">All</button>
-        <button class="filter-btn" data-filter="Residential">Residential</button>
-        <button class="filter-btn" data-filter="Commercial">Commercial</button>
-        <button class="filter-btn" data-filter="Urban Design">Urban Design</button>
-        <button class="filter-btn" data-filter="Interior">Interior</button>
-      </div>
+  <span class="section-label">Selected Work</span>
+  <div style="display:flex;align-items:center;gap:1rem;flex-wrap:wrap">
+    <div class="search-box">
+      <span class="search-icon">�索</span>
+      <input type="text" id="search-input" placeholder="Search projects..." oninput="filterProjects()"/>
     </div>
+    <div class="filter-bar">
+      <button class="filter-btn active" data-filter="all" onclick="setFilter(this)">All</button>
+      <button class="filter-btn" data-filter="Residential" onclick="setFilter(this)">Residential</button>
+      <button class="filter-btn" data-filter="Commercial" onclick="setFilter(this)">Commercial</button>
+      <button class="filter-btn" data-filter="Urban Design" onclick="setFilter(this)">Urban Design</button>
+      <button class="filter-btn" data-filter="Interior" onclick="setFilter(this)">Interior</button>
+    </div>
+  </div>
+</div>
     <div class="projects-grid" id="projects-grid">
       <!-- Projects loaded here -->
     </div>
