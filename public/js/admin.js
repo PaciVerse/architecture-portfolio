@@ -121,7 +121,7 @@ async function deleteProject(id) {
       headers: { authorization: adminToken }
     });
     const data = await res.json();
-    alert(data.message);
+    showToast(data.message, 'success');
     loadProjects();
   } catch (err) {
     console.error('Error deleting project:', err);

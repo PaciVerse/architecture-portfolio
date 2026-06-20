@@ -123,8 +123,8 @@ async function submitReview() {
   const token = localStorage.getItem('visitorToken');
   const comment = document.getElementById('review-comment').value;
 
-  if (!selectedRating) return alert('Please select a rating');
-  if (!comment.trim()) return alert('Please write a comment');
+  if (!selectedRating) return showToast('Please select a rating', 'error');
+  if (!comment.trim()) return showToast('Please write a comment', 'error');
 
   try {
     const res = await fetch(`${API}/reviews/${projectId}`, {
@@ -133,7 +133,7 @@ async function submitReview() {
       body: JSON.stringify({ rating: selectedRating, comment })
     });
     const data = await res.json();
-    alert(data.message);
+    showToast(data.message, 'success');
     document.getElementById('review-comment').value = '';
     selectedRating = 0;
     document.querySelectorAll('.star').forEach(s => s.classList.remove('active'));
