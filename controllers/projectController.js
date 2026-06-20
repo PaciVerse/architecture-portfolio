@@ -37,6 +37,7 @@ exports.getProject = (req, res) => {
 exports.createProject = (req, res) => {
   const { title, description, category, year } = req.body;
   const files = req.files || [];
+  const captions = req.body.captions || [];
 
   db.query(
     'INSERT INTO projects (title, description, category, year) VALUES (?, ?, ?, ?)',
@@ -52,11 +53,12 @@ exports.createProject = (req, res) => {
       const imageValues = files.map((file, index) => [
         projectId,
         file.path,
-        index === 0 ? 1 : 0
+        index === 0 ? 1 : 0,
+        Array.isArray(captions) ? (captions[index] || null) : (index === 0 ? captions : null)
       ]);
 
       db.query(
-        'INSERT INTO project_images (project_id, image, is_cover) VALUES ?',
+        'INSERT INTO project_images (project_id, image, is_cover, caption) VALUES ?',
         [imageValues],
         (err) => {
           if (err) return res.status(500).json({ message: 'Error saving images' });
@@ -71,6 +73,7 @@ exports.createProject = (req, res) => {
 exports.updateProject = (req, res) => {
   const { title, description, category, year } = req.body;
   const files = req.files || [];
+  const captions = req.body.captions || [];
 
   db.query(
     'UPDATE projects SET title=?, description=?, category=?, year=? WHERE id=?',
@@ -84,11 +87,12 @@ exports.updateProject = (req, res) => {
       const imageValues = files.map((file, index) => [
         req.params.id,
         file.path,
-        index === 0 ? 1 : 0
+        index === 0 ? 1 : 0,
+        Array.isArray(captions) ? (captions[index] || null) : (index === 0 ? captions : null)
       ]);
 
       db.query(
-        'INSERT INTO project_images (project_id, image, is_cover) VALUES ?',
+        'INSERT INTO project_images (project_id, image, is_cover, caption) VALUES ?',
         [imageValues],
         (err) => {
           if (err) return res.status(500).json({ message: 'Error saving images' });
@@ -134,6 +138,19 @@ exports.setCover = (req, res) => {
           res.json({ message: 'Cover image updated' });
         }
       );
+    }
+  );
+};
+
+// Update image caption
+exports.updateCaption = (req, res) => {
+  const { caption } = req.body;
+  db.query(
+    'UPDATE project_images SET caption = ? WHERE id = ? AND project_id = ?',
+    [caption, req.params.imageId, req.params.id],
+    (err) => {
+      if (err) return res.status(500).json({ message: 'Error updating caption' });
+      res.json({ message: 'Caption updated' });
     }
   );
 };

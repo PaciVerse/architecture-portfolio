@@ -208,6 +208,22 @@
   text-transform: uppercase;
 }
 
+/* GALLERY CAPTIONS */
+.gallery-item-wrap {
+  display: flex;
+  flex-direction: column;
+}
+
+.gallery-caption {
+  padding: 0.8rem 1rem;
+  font-size: 0.8rem;
+  color: rgba(240,237,232,0.55);
+  line-height: 1.6;
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  font-style: italic;
+}
+
 @media (max-width: 768px) {
   .project-hero { height: 50vh; }
   .project-hero-content { padding: 2rem 1.5rem; }

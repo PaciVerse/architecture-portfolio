@@ -27,8 +27,8 @@ async function loadProjects() {
 
     list.innerHTML = projects.map(p => `
       <div class="admin-project-item">
-        ${p.cover_image
-          ? `<img src="${p.cover_image}" class="admin-project-thumb" alt="${p.title}"/>`
+        ${p.cover_image || p.image
+          ? `<img src="${p.cover_image || p.image}" class="admin-project-thumb" alt="${p.title}"/>`
           : `<div class="admin-project-thumb-placeholder">🏗</div>`
         }
         <div class="admin-project-info">
@@ -46,6 +46,35 @@ async function loadProjects() {
   }
 }
 
+// Preview images before upload with caption inputs
+function previewImages() {
+  const files = document.getElementById('f-image').files;
+  const container = document.getElementById('image-previews');
+
+  if (files.length === 0) {
+    container.innerHTML = '';
+    return;
+  }
+
+  container.innerHTML = Array.from(files).map((file, index) => {
+    const url = URL.createObjectURL(file);
+    return `
+      <div class="image-preview-item">
+        <div class="image-preview-thumb-wrap">
+          <img src="${url}" class="image-preview-thumb" alt="preview"/>
+          ${index === 0 ? `<span class="cover-badge">Cover</span>` : ''}
+        </div>
+        <input
+          type="text"
+          class="caption-input"
+          id="caption-${index}"
+          placeholder="Add a caption for this image (optional)"
+        />
+      </div>
+    `;
+  }).join('');
+}
+
 async function saveProject() {
   const id = document.getElementById('edit-id').value;
   const title = document.getElementById('f-title').value;
@@ -61,8 +90,11 @@ async function saveProject() {
   formData.append('category', category);
   formData.append('year', year);
   formData.append('description', description);
+
   for (let i = 0; i < images.length; i++) {
     formData.append('images', images[i]);
+    const caption = document.getElementById(`caption-${i}`)?.value || '';
+    formData.append('captions', caption);
   }
 
   try {
@@ -95,6 +127,7 @@ function editProject(id, title, category, year, description) {
   document.getElementById('f-year').value = year;
   document.getElementById('f-description').value = description;
   document.getElementById('cancel-edit').style.display = 'inline-block';
+  document.getElementById('current-images-section').style.display = 'block';
   loadProjectImages(id);
 }
 
@@ -114,10 +147,30 @@ async function loadProjectImages(projectId) {
         <img src="${img.image}" class="image-thumb" alt="project image"/>
         ${img.is_cover ? `<span class="cover-badge">Cover</span>` : `<button class="btn-set-cover" onclick="setCover(${projectId}, ${img.id})">Set Cover</button>`}
         <button class="btn-del-img" onclick="deleteImage(${projectId}, ${img.id})">×</button>
+        <input
+          type="text"
+          class="caption-input-small"
+          value="${img.caption || ''}"
+          placeholder="Caption..."
+          onblur="updateCaption(${projectId}, ${img.id}, this.value)"
+        />
       </div>
     `).join('');
   } catch (err) {
     console.error('Error loading images:', err);
+  }
+}
+
+async function updateCaption(projectId, imageId, caption) {
+  try {
+    await fetch(`${API}/projects/${projectId}/images/${imageId}/caption`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json', authorization: adminToken },
+      body: JSON.stringify({ caption })
+    });
+    showToast('Caption saved!', 'success');
+  } catch (err) {
+    showToast('Error saving caption', 'error');
   }
 }
 
@@ -160,7 +213,9 @@ function cancelEdit() {
   document.getElementById('f-description').value = '';
   document.getElementById('f-image').value = '';
   document.getElementById('cancel-edit').style.display = 'none';
+  document.getElementById('current-images-section').style.display = 'none';
   document.getElementById('current-images').innerHTML = '';
+  document.getElementById('image-previews').innerHTML = '';
 }
 
 function deleteProject(id) {

@@ -49,9 +49,12 @@ async function loadProject() {
 function renderGallery() {
   const gallery = document.getElementById('gallery-grid');
   gallery.innerHTML = projectImages.map((img, index) => `
-    <div class="gallery-item ${img.is_cover ? 'is-cover' : ''}" onclick="openLightbox(${index})">
-      <img src="${img.image}" alt="Project image ${index + 1}"/>
-      ${img.is_cover ? `<span class="gallery-cover-badge">Cover</span>` : ''}
+    <div class="gallery-item-wrap">
+      <div class="gallery-item ${img.is_cover ? 'is-cover' : ''}" onclick="openLightbox(${index})">
+        <img src="${img.image}" alt="${img.caption || 'Project image'}"/>
+        ${img.is_cover ? `<span class="gallery-cover-badge">Cover</span>` : ''}
+      </div>
+      ${img.caption ? `<p class="gallery-caption">${img.caption}</p>` : ''}
     </div>
   `).join('');
 }
@@ -64,8 +67,11 @@ function openLightbox(index) {
 }
 
 function updateLightbox() {
-  document.getElementById('lightbox-img').src = projectImages[currentImageIndex].image;
+  const img = projectImages[currentImageIndex];
+  document.getElementById('lightbox-img').src = img.image;
   document.getElementById('lightbox-counter').textContent = `${currentImageIndex + 1} / ${projectImages.length}`;
+  const captionEl = document.getElementById('lightbox-caption');
+  if (captionEl) captionEl.textContent = img.caption || '';
 }
 
 function lightboxNext() {

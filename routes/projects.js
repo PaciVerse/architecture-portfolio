@@ -9,7 +9,8 @@ const {
   updateProject,
   deleteProject,
   deleteImage,
-  setCover
+  setCover,
+  updateCaption
 } = require('../controllers/projectController');
 
 router.get('/', getAllProjects);
@@ -19,5 +20,6 @@ router.put('/:id', auth, upload.array('images', 10), updateProject);
 router.delete('/:id', auth, deleteProject);
 router.delete('/:id/images/:imageId', auth, deleteImage);
 router.put('/:id/images/:imageId/cover', auth, setCover);
+router.put('/:id/images/:imageId/caption', auth, updateCaption);
 
 module.exports = router;

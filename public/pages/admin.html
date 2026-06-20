@@ -79,11 +79,14 @@
           </div>
           <div class="form-group">
             <label>Project Images (select multiple)</label>
-            <input type="file" id="f-image" accept="image/*" multiple/>
-            <p style="font-size:0.75rem;color:var(--muted);margin-top:0.5rem">First image will be set as cover. You can change it after.</p>
+            <input type="file" id="f-image" accept="image/*" multiple onchange="previewImages()"/>
+            <p style="font-size:0.75rem;color:var(--muted);margin-top:0.5rem">First image will be set as cover. Add a caption for each image.</p>
           </div>
 
-          <!-- CURRENT IMAGES -->
+          <!-- IMAGE PREVIEWS WITH CAPTIONS -->
+          <div id="image-previews" class="images-preview-list"></div>
+
+          <!-- CURRENT IMAGES (when editing) -->
           <div class="form-group" id="current-images-section" style="display:none">
             <label>Current Images</label>
             <div id="current-images" class="images-grid"></div>
