@@ -146,20 +146,21 @@ async function submitReview() {
 // Delete review
 async function deleteReview(id) {
   const token = localStorage.getItem('visitorToken');
-  if (!confirm('Delete this review?')) return;
-
+  showConfirm('This review will be permanently deleted.', async () => {
+  const token = localStorage.getItem('visitorToken');
   try {
     const res = await fetch(`${API}/reviews/${id}`, {
       method: 'DELETE',
       headers: { authorization: token }
     });
     const data = await res.json();
-    alert(data.message);
+    showToast(data.message, 'success');
     loadReviews();
   } catch (err) {
-    console.error('Error deleting review:', err);
+    showToast('Error deleting review', 'error');
   }
-}
+});
+return;
 
 // Check auth for review form
 function checkAuth() {

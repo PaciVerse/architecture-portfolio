@@ -113,19 +113,19 @@ function cancelEdit() {
 
 // Delete project
 async function deleteProject(id) {
-  if (!confirm('Delete this project?')) return;
-
-  try {
-    const res = await fetch(`${API}/projects/${id}`, {
-      method: 'DELETE',
-      headers: { authorization: adminToken }
-    });
-    const data = await res.json();
-    showToast(data.message, 'success');
-    loadProjects();
-  } catch (err) {
-    console.error('Error deleting project:', err);
-  }
+  showConfirm('This action cannot be undone. The project will be permanently deleted.', async () => {
+    try {
+      const res = await fetch(`${API}/projects/${id}`, {
+        method: 'DELETE',
+        headers: { authorization: adminToken }
+      });
+      const data = await res.json();
+      showToast(data.message, 'success');
+      loadProjects();
+    } catch (err) {
+      showToast('Error deleting project', 'error');
+    }
+  });
 }
 
 // Load messages
@@ -161,20 +161,20 @@ async function loadMessages() {
 }
 
 // Delete message
-async function deleteMessage(id) {
-  if (!confirm('Delete this message?')) return;
-
-  try {
-    const res = await fetch(`${API}/contacts/${id}`, {
-      method: 'DELETE',
-      headers: { authorization: adminToken }
-    });
-    const data = await res.json();
-    alert(data.message);
-    loadMessages();
-  } catch (err) {
-    console.error('Error deleting message:', err);
-  }
+async async function deleteMessage(id) {
+  showConfirm('This message will be permanently deleted.', async () => {
+    try {
+      const res = await fetch(`${API}/contacts/${id}`, {
+        method: 'DELETE',
+        headers: { authorization: adminToken }
+      });
+      const data = await res.json();
+      showToast(data.message, 'success');
+      loadMessages();
+    } catch (err) {
+      showToast('Error deleting message', 'error');
+    }
+  });
 }
 
 function showFormMsg(msg, type) {
