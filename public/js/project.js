@@ -165,20 +165,29 @@ async function deleteReview(id) {
 function checkAuth() {
   const token = localStorage.getItem('visitorToken');
   const adminToken = localStorage.getItem('adminToken');
+  const username = localStorage.getItem('visitorUsername');
   const navAuth = document.getElementById('nav-auth');
 
   if (token) {
     document.getElementById('review-form').style.display = 'block';
     document.getElementById('review-login-msg').style.display = 'none';
-    const username = localStorage.getItem('visitorUsername');
     if (navAuth) navAuth.innerHTML = `
-      <span style="font-size:0.8rem;color:var(--gold);margin-right:1rem">${username}</span>
-      <a href="#" class="btn-outline" onclick="logout()">Logout</a>
+      <div style="display:flex;align-items:center;gap:1rem">
+        <div style="display:flex;align-items:center;gap:0.5rem">
+          <div style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--blue),#7B5FFF);display:flex;align-items:center;justify-content:center;font-size:0.75rem;font-weight:600;color:white">
+            ${username.charAt(0).toUpperCase()}
+          </div>
+          <span style="font-size:0.85rem;color:var(--text)">${username}</span>
+        </div>
+        <a href="#" class="btn-outline" onclick="logout()">Logout</a>
+      </div>
     `;
   } else if (adminToken) {
     document.getElementById('review-form').style.display = 'none';
     document.getElementById('review-login-msg').style.display = 'none';
     if (navAuth) navAuth.innerHTML = `<a href="admin.html" class="btn-outline">Dashboard</a>`;
+  } else {
+    if (navAuth) navAuth.innerHTML = `<a href="auth.html" class="btn-outline">Login</a>`;
   }
 }
 
