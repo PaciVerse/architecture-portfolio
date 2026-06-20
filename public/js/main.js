@@ -28,10 +28,10 @@ function renderProjects(projects) {
 
   grid.innerHTML = projects.map(p => `
     <div class="project-card fade-up" onclick="location.href='pages/project.html?id=${p.id}'">
-      ${p.image
-        ? `<img src="${p.image}" alt="${p.title}"/>`
-        : `<div class="project-card-no-img"><span>A</span></div>`
-      }
+      ${p.cover_image || p.image
+  ? `<img src="${p.cover_image || p.image}" alt="${p.title}"/>`
+  : `<div class="project-card-no-img"><span>A</span></div>`
+}
       <div class="project-card-info">
         <div class="project-card-title">${p.title}</div>
         <div class="project-card-meta">
