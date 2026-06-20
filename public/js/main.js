@@ -37,7 +37,10 @@ async function loadProjects(filter = 'all') {
         }
         <div class="project-card-info">
           <div class="project-card-title">${p.title}</div>
-          <div class="project-card-meta">${p.category || ''} ${p.year ? '· ' + p.year : ''}</div>
+          <div class="project-card-meta">
+  ${p.category ? `<span class="category-badge">${p.category}</span>` : ''}
+  ${p.year ? `<span class="project-year">${p.year}</span>` : ''}
+</div>
         </div>
       </div>
     `).join('');

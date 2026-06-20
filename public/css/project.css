@@ -10,7 +10,7 @@
 .project-hero-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.2) 100%);
+  background: linear-gradient(to top, rgba(8,11,20,0.97) 0%, rgba(8,11,20,0.3) 100%);
   z-index: 1;
 }
 
@@ -42,12 +42,13 @@
   align-items: flex-start;
   gap: 4rem;
   border-bottom: 1px solid var(--border);
+  background: var(--surface);
 }
 
 .project-description {
   font-size: 1.05rem;
   line-height: 1.9;
-  color: rgba(240,237,232,0.75);
+  color: rgba(240,237,232,0.7);
   max-width: 700px;
 }
 
@@ -57,21 +58,30 @@
   background: none;
   border: 1px solid var(--border);
   color: var(--text);
-  padding: 0.7rem 1.5rem;
+  padding: 0.8rem 1.8rem;
   font-size: 0.9rem;
   cursor: pointer;
   transition: all 0.2s;
   font-family: 'Inter', sans-serif;
   letter-spacing: 0.05em;
+  border-radius: 2px;
 }
 
-.like-btn:hover, .like-btn.liked {
-  border-color: var(--gold);
-  color: var(--gold);
+.like-btn:hover {
+  border-color: var(--blue);
+  color: var(--blue);
+  box-shadow: 0 0 20px var(--blue-glow);
+}
+
+.like-btn.liked {
+  border-color: var(--blue);
+  color: var(--blue);
+  background: var(--blue-glow);
 }
 
 .reviews-section {
   padding: 4rem;
+  background: var(--bg);
 }
 
 .review-form {
@@ -105,9 +115,10 @@
   resize: vertical;
   margin-bottom: 1rem;
   outline: none;
+  border-radius: 2px;
 }
 
-.review-form textarea:focus { border-color: var(--gold); }
+.review-form textarea:focus { border-color: var(--blue); }
 
 .reviews-list { margin-top: 2rem; }
 
@@ -127,7 +138,7 @@
   font-size: 0.85rem;
   font-weight: 500;
   letter-spacing: 0.1em;
-  color: var(--gold);
+  color: var(--blue);
 }
 
 .review-stars { color: var(--gold); font-size: 0.9rem; }
@@ -155,42 +166,16 @@
 
 .delete-review:hover { color: #e05555; }
 
-
 @media (max-width: 768px) {
-  .project-hero {
-    height: 50vh;
-  }
-
-  .project-hero-content {
-    padding: 2rem 1.5rem;
-  }
-
-  .project-title {
-    font-size: clamp(2rem, 8vw, 3rem);
-  }
-
-  .project-body {
-    flex-direction: column;
-    padding: 2rem 1.5rem;
-    gap: 1.5rem;
-  }
-
-  .reviews-section {
-    padding: 2rem 1.5rem;
-  }
-
-  .review-form textarea {
-    max-width: 100%;
-  }
+  .project-hero { height: 50vh; }
+  .project-hero-content { padding: 2rem 1.5rem; }
+  .project-title { font-size: clamp(2rem, 8vw, 3rem); }
+  .project-body { flex-direction: column; padding: 2rem 1.5rem; gap: 1.5rem; }
+  .reviews-section { padding: 2rem 1.5rem; }
+  .review-form textarea { max-width: 100%; }
 }
 
 @media (max-width: 480px) {
-  .project-hero-content {
-    padding: 1.5rem 1.2rem;
-  }
-
-  .like-btn {
-    width: 100%;
-    text-align: center;
-  }
+  .project-hero-content { padding: 1.5rem 1.2rem; }
+  .like-btn { width: 100%; text-align: center; }
 }

@@ -4,6 +4,7 @@
   align-items: center;
   justify-content: center;
   padding: 8rem 2rem 4rem;
+  background: radial-gradient(ellipse at top, rgba(79,126,255,0.05) 0%, transparent 60%);
 }
 
 .auth-box {
@@ -12,6 +13,8 @@
   background: var(--surface);
   border: 1px solid var(--border);
   padding: 3rem;
+  border-radius: 4px;
+  box-shadow: 0 0 60px rgba(79,126,255,0.05);
 }
 
 .auth-header { margin-bottom: 2rem; }
@@ -20,6 +23,10 @@
   font-family: 'Cormorant Garamond', serif;
   font-size: 2.2rem;
   font-weight: 300;
+  background: linear-gradient(135deg, var(--text), rgba(240,237,232,0.7));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .auth-sub {
@@ -50,13 +57,11 @@
 }
 
 .auth-tab.active {
-  color: var(--gold);
-  border-bottom-color: var(--gold);
+  color: var(--blue);
+  border-bottom-color: var(--blue);
 }
 
-.form-group {
-  margin-bottom: 1.2rem;
-}
+.form-group { margin-bottom: 1.2rem; }
 
 .form-group label {
   display: block;
@@ -77,9 +82,13 @@
   font-size: 0.9rem;
   outline: none;
   transition: border-color 0.2s;
+  border-radius: 2px;
 }
 
-.form-group input:focus { border-color: var(--gold); }
+.form-group input:focus {
+  border-color: var(--blue);
+  box-shadow: 0 0 0 3px var(--blue-glow);
+}
 
 .auth-msg {
   font-size: 0.8rem;
@@ -112,21 +121,8 @@
 }
 
 @media (max-width: 480px) {
-  .auth-box {
-    padding: 2rem 1.2rem;
-  }
-
-  .auth-title {
-    font-size: 1.8rem;
-  }
-
-  .auth-tabs {
-    gap: 0;
-  }
-
-  .auth-tab {
-    flex: 1;
-    text-align: center;
-    padding: 0.8rem 0.5rem;
-  }
+  .auth-box { padding: 2rem 1.2rem; }
+  .auth-title { font-size: 1.8rem; }
+  .auth-tabs { gap: 0; }
+  .auth-tab { flex: 1; text-align: center; padding: 0.8rem 0.5rem; }
 }

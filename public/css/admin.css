@@ -30,10 +30,16 @@
   border-left: 2px solid transparent;
 }
 
-.sidebar-item:hover, .sidebar-item.active {
-  color: var(--gold);
-  border-left-color: var(--gold);
-  background: rgba(201,168,76,0.05);
+.sidebar-item:hover {
+  color: var(--blue);
+  border-left-color: var(--blue);
+  background: var(--blue-glow);
+}
+
+.sidebar-item.active {
+  color: var(--blue);
+  border-left-color: var(--blue);
+  background: var(--blue-glow);
 }
 
 .admin-main {
@@ -52,35 +58,48 @@
   font-family: 'Cormorant Garamond', serif;
   font-size: 2rem;
   font-weight: 300;
+  background: linear-gradient(135deg, var(--text), rgba(240,237,232,0.6));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
-/* PROJECT LIST */
 .admin-project-item {
   display: flex;
   align-items: center;
   gap: 1.5rem;
-  padding: 1.2rem 0;
-  border-bottom: 1px solid var(--border);
+  padding: 1.2rem;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  margin-bottom: 0.8rem;
+  background: var(--surface);
+  transition: all 0.2s;
+}
+
+.admin-project-item:hover {
+  border-color: var(--blue);
+  box-shadow: 0 0 20px var(--blue-glow);
 }
 
 .admin-project-thumb {
   width: 80px;
   height: 60px;
   object-fit: cover;
-  background: var(--surface);
+  border-radius: 2px;
   flex-shrink: 0;
 }
 
 .admin-project-thumb-placeholder {
   width: 80px;
   height: 60px;
-  background: var(--border);
+  background: var(--surface2);
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 1.5rem;
   color: var(--muted);
   flex-shrink: 0;
+  border-radius: 2px;
 }
 
 .admin-project-info { flex: 1; }
@@ -112,17 +131,20 @@
   cursor: pointer;
   font-family: 'Inter', sans-serif;
   transition: all 0.2s;
+  border-radius: 2px;
 }
 
-.btn-edit:hover { border-color: var(--gold); color: var(--gold); }
+.btn-edit:hover {
+  border-color: var(--blue);
+  color: var(--blue);
+  background: var(--blue-glow);
+}
+
 .btn-delete:hover { border-color: #e05555; color: #e05555; }
 
-/* FORM */
 .project-form { max-width: 600px; }
 
-.project-form .form-group {
-  margin-bottom: 1.2rem;
-}
+.project-form .form-group { margin-bottom: 1.2rem; }
 
 .project-form label {
   display: block;
@@ -137,22 +159,25 @@
 .project-form select,
 .project-form textarea {
   width: 100%;
-  background: var(--surface);
+  background: var(--bg);
   border: 1px solid var(--border);
   color: var(--text);
   padding: 0.8rem 1rem;
   font-family: 'Inter', sans-serif;
   font-size: 0.9rem;
   outline: none;
-  transition: border-color 0.2s;
+  transition: all 0.2s;
+  border-radius: 2px;
 }
 
 .project-form input:focus,
 .project-form select:focus,
-.project-form textarea:focus { border-color: var(--gold); }
+.project-form textarea:focus {
+  border-color: var(--blue);
+  box-shadow: 0 0 0 3px var(--blue-glow);
+}
 
 .project-form select option { background: var(--surface); }
-
 .project-form textarea { resize: vertical; }
 
 .form-row {
@@ -171,16 +196,23 @@
   cursor: pointer;
   font-family: 'Inter', sans-serif;
   transition: all 0.2s;
+  border-radius: 2px;
 }
 
 .btn-cancel:hover { border-color: #e05555; color: #e05555; }
 
-/* MESSAGES */
 .message-item {
   background: var(--surface);
   border: 1px solid var(--border);
   padding: 1.5rem;
   margin-bottom: 1rem;
+  border-radius: 4px;
+  transition: all 0.2s;
+}
+
+.message-item:hover {
+  border-color: var(--blue);
+  box-shadow: 0 0 20px var(--blue-glow);
 }
 
 .message-header {
@@ -193,7 +225,7 @@
 .message-name {
   font-weight: 500;
   font-size: 0.9rem;
-  color: var(--gold);
+  color: var(--blue);
 }
 
 .message-email {
@@ -216,41 +248,15 @@
 }
 
 @media (max-width: 768px) {
-  .admin-sidebar {
-    width: 60px;
-    padding: 1rem 0;
-  }
-
-  .sidebar-item span:last-child {
-    display: none;
-  }
-
-  .sidebar-item {
-    justify-content: center;
-    padding: 1rem;
-  }
-
-  .admin-main {
-    margin-left: 60px;
-    padding: 2rem 1.5rem;
-  }
-
-  .form-row {
-    grid-template-columns: 1fr;
-  }
-
-  .admin-project-item {
-    flex-wrap: wrap;
-  }
+  .admin-sidebar { width: 60px; padding: 1rem 0; }
+  .sidebar-item span:last-child { display: none; }
+  .sidebar-item { justify-content: center; padding: 1rem; }
+  .admin-main { margin-left: 60px; padding: 2rem 1.5rem; }
+  .form-row { grid-template-columns: 1fr; }
+  .admin-project-item { flex-wrap: wrap; }
 }
 
 @media (max-width: 480px) {
-  .admin-sidebar {
-    display: none;
-  }
-
-  .admin-main {
-    margin-left: 0;
-    padding: 1.5rem 1.2rem;
-  }
+  .admin-sidebar { display: none; }
+  .admin-main { margin-left: 0; padding: 1.5rem 1.2rem; }
 }
