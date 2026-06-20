@@ -22,6 +22,12 @@ exports.createProject = (req, res) => {
   const { title, description, category, year } = req.body;
   const image = req.file ? req.file.filename : null;
 
+  // Create uploads dir if it doesn't exist
+  const fs = require('fs');
+  if (!fs.existsSync('uploads')) {
+    fs.mkdirSync('uploads');
+  }
+
   db.query(
     'INSERT INTO projects (title, description, category, year, image) VALUES (?, ?, ?, ?, ?)',
     [title, description, category, year, image],
